@@ -1,0 +1,62 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('regmoney',array('op' =>'display'))}">推荐入职列表</a></li>
+	
+</ul>
+
+{if $operation == 'display'}
+
+
+<div class="main">
+	
+<style>
+.label{cursor:pointer;}
+</style>
+
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:30px;">ID</th>
+					<th>好友姓名</th>					
+					<th>意向公司</th>
+					<th>好友联系方式</th>
+					<th>创建时间</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $vo}
+				<tr>
+					<td>{$vo['id']}</td>
+					<td>{$vo['jobname']}</td>
+					<td>{$vo['companyname']}</td>
+					<td>{$vo['jobtel']}</td>
+					<td>{php echo date('Y-m-d H:i:s', $vo['createtime'])}</td>
+					<td style="text-align:left;">
+						
+						<a href="{php echo $this->createWebUrl('regmoney', array('op' => 'delete', 'id' => $vo['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+
+{/if}
+{template 'common/footer'}

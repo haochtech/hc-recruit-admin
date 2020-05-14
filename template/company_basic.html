@@ -1,0 +1,275 @@
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属城市</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="cityid" name="cityid">
+				<option value="0">请选择所属城市</option>
+					{loop $citylist $vo}
+				<option value="{$vo['id']}" {if $item['cityid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属地区</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="areaid" name="areaid">
+				<option value="0">请选择所属地区</option>
+					{loop $arealist $vo}
+				<option value="{$vo['id']}" {if $item['areaid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+<!--
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属套餐</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="cityid" name="roleid">
+				<option value="0">请选择所属套餐</option>
+					{loop $companyrolelist $vo}
+				<option value="{$vo['id']}" {if $item['roleid'] == $vo['id']} selected {/if}>{$vo['title']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+-->
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>企业名称</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companyname" id="companyname" class="form-control" value="{$item['companyname']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>企业行业</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companycate" id="companycate" class="form-control" value="{$item['companycate']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>企业性质</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companytype" id="companytype" class="form-control" value="{$item['companytype']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>企业人员规模</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companyworker" id="companyworker" class="form-control" value="{$item['companyworker']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>负责人</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="mastername" id="mastername" class="form-control" value="{$item['mastername']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>电话</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="tel" id="tel" class="form-control" value="{$item['tel']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>查看简历次数</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="notenum" id="notenum" class="form-control" value="{$item['notenum']}" />
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>地址</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="address" id="address" class="form-control" value="{$item['address']}" />
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>地图位置</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_coordinate('location', array('lng' => $item['lng'], 'lat' => $item['lat']))}
+					</div>
+				</div>
+
+<input type="hidden" name="id" id="id" value="{$item['id']}"/>
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">企业LOGO</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_form_field_image('thumb', $item['thumb'], '', array('extras' => array('text' => 'readonly')))}
+	</div>
+</div>
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">企业介绍</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_ueditor('content', $item['content']);}
+	</div>
+</div>
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">首页推荐</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=1 {if $item['isrecommand']==1}checked{/if} /> 是
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=0 {if $item['isrecommand']==0}checked{/if} /> 否
+						 </label>
+					</div>
+				</div>
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='status' value=0 {if $item['status']==0}checked{/if} /> 正常
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='status' value=1 {if $item['status']==1}checked{/if} /> 审核中
+						 </label>
+					</div>
+				</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>排序</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="sort" id="sort" class="form-control" value="{$item['sort']}" />
+	</div>
+</div>
+
+
+</div>
+
+
+<script language="javascript">
+
+
+
+  	$("#cityid").change(function(){
+    	var cityid = $("#cityid").val();
+        
+    //  alert(cityid);
+    
+      var url = "./index.php?c=site&a=entry&op=getcity&do=company&m=weixinmao_zp";
+      
+      
+     // alert(url);
+		$.ajax({
+			"url": url,
+             data:{cityid:cityid},
+           datatype:"JSON",
+			success:function(data){
+              
+            var json =  JSON.parse(data);
+              console.log(json.data);
+     var list = json.data;
+              $("#areaid").empty();
+              $("#areaid").append("<option value='0'>请选择所属地区</option>"); 
+                  $.each(list, function (index) {  
+                    //循环获取数据    
+                              $("#areaid").append("<option value="+list[index].id+">"+list[index].name+"</option>"); 
+
+                 // alert(list[index].housename);  
+                  
+                }); 
+			}
+		});
+    
+    
+    
+    })
+
+
+
+
+
+	$(function () {
+		var i = 0;
+		$('#selectimage').click(function () {
+			var editor = KindEditor.editor({
+				allowFileManager: false,
+				imageSizeLimit: '30MB',
+				uploadJson: './index.php?act=attachment&do=upload'
+			});
+			editor.loadPlugin('multiimage', function () {
+				editor.plugin.multiImageDialog({
+					clickFn: function (list) {
+						if (list && list.length > 0) {
+							for (i in list) {
+								if (list[i]) {
+									html = '<li class="imgbox" style="list-type:none">' +
+												'<a class="item_close" href="javascript:;" onclick="deletepic(this);" title="删除"></a>' +
+												'<span class="item_box"> <img src="' + list[i]['url'] + '" style="height:80px"></span>' +
+												'<input type="hidden" name="attachment-new[]" value="' + list[i]['filename'] + '" />' +
+											'</li>';
+									$('#fileList').append(html);
+									i++;
+								}
+							}
+							editor.hideDialog();
+						} else {
+							alert('请先选择要上传的图片！');
+						}
+					}
+				});
+			});
+		});
+	});
+
+	function deletepic(obj) {
+		if (confirm("确认要删除？")) {
+			var $thisob = $(obj);
+			var $liobj = $thisob.parent();
+			var picurl = $liobj.children('input').val();
+			$.post('{php echo $this->createMobileUrl('ajaxdelete',array())}', {pic: picurl}, function (m) {
+				if (m == '1') {
+					$liobj.remove();
+				} else {
+					alert("删除失败");
+				}
+			}, "html");
+		}
+	}
+
+</script>

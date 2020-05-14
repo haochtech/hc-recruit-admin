@@ -1,0 +1,283 @@
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>工作职位</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="jobtitle" id="jobtitle" class="form-control" value="{$item['jobtitle']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>悬赏奖金</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="vprice" id="vprice" class="form-control" value="{$item['vprice']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>推荐有效简历奖</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="noteprice" id="noteprice" class="form-control" value="{$item['noteprice']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>打赏金额</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="dmoney" id="dmoney" class="form-control" value="{$item['dmoney']}" />
+	</div>
+</div>
+<!--
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>工作地区</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="areaid" name="areaid">
+				<option value="0">请选择所属地区</option>
+					{loop $arealist $vo}
+				<option value="{$vo['id']}" {if $item['areaid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+-->
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>工作类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="worktype" name="worktype">
+				<option value="0">请选择工作类型</option>
+				{if $worktypelist }
+				{loop $worktypelist $vo}
+				<option value="{$vo['id']}" {if $item['worktype'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>薪资待遇</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="money" id="money" class="form-control" value="{$item['money']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>招聘人数</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="num" id="num" class="form-control" value="{$item['num']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>年龄要求</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="age" id="age" class="form-control" value="{$item['age']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>学历要求</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="education" name="education">
+				<option value="0">请选择学历</option>
+				<option value="不限" {if $item['education'] == '不限'} selected {/if}>不限</option>
+				<option value="初中以上" {if $item['education'] == '初中以上'} selected {/if}>初中以上</option>
+				<option value="高中以上" {if $item['education'] == '高中以上'} selected {/if}>高中以上</option>
+				<option value="中技以上" {if $item['education'] == '中技以上'} selected {/if}>中技以上</option>
+				<option value="中专以上" {if $item['education'] == '中专以上'} selected {/if}>中专以上</option>
+				<option value="大专以上" {if $item['education'] == '大专以上'} selected {/if}>大专以上</option>
+				<option value="本科以上" {if $item['education'] == '本科以上'} selected {/if}>本科以上</option>
+				<option value="硕士以上" {if $item['education'] == '硕士以上'} selected {/if}>硕士以上</option>
+				<option value="博士以上" {if $item['education'] == '博士以上'} selected {/if}>博士以上</option>
+			 <option value="博后" {if $item['education'] == '博后'} selected {/if}>博后</option>
+
+
+			    
+				
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>工作经验</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="express" name="express">
+				<option value="">请选择工作经验</option>
+				<option value="无经验" {if $item['express'] == '无经验'} selected {/if}>无经验</option>
+				<option value="1年以下" {if $item['express'] == '1年以下'} selected {/if}>1年以下</option>
+				<option value="1-3年" {if $item['express'] == '1-3年'} selected {/if}>1-3年</option>
+          		<option value="3-5年" {if $item['express'] == '3-5年'} selected {/if}>3-5年</option>
+				<option value="5-10年" {if $item['express'] == '5-10年'} selected {/if}>5-10年</option>
+				<option value="10年以上" {if $item['express'] == '10年以上'} selected {/if}>10年以上</option>
+						
+				
+			</select>
+	</div>
+</div>
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>工作性质</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="jobtype" name="jobtype">
+				<option value="">请选择工作性质</option>
+				<option value="全职" {if $item['jobtype'] == '全职'} selected {/if}>全职</option>
+				<option value="兼职" {if $item['jobtype'] == '兼职'} selected {/if}>兼职</option>
+				<option value="实习" {if $item['jobtype'] == '实习'} selected {/if}>实习</option>
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>招聘公司</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="companyid" name="companyid">
+				<option value="0">请选择所属公司</option>
+				{if $companylist }
+				{loop $companylist $vo}
+				<option value="{$vo['id']}" {if $item['companyid'] == $vo['id']} selected {/if}>{$vo['companyname']}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">性别要求</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='sex' value=1 {if $item['sex']==1}checked{/if} /> 男
+						 </label>
+
+
+						 <label class='radio-inline'>
+							 <input type='radio' name='sex' value=2 {if $item['sex']==2}checked{/if} /> 女
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='sex' value=0 {if $item['sex']==0}checked{/if} /> 不限
+						 </label>
+					</div>
+				</div>
+
+
+<div class="form-group">
+       
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">福利待遇</label>
+					<div class="col-sm-9 col-xs-12">
+			<label class='radio-inline'><input 	{if $item['special'] } {if in_array('五险一金',$item['special'])} checked {/if} {/if} type="checkbox" name="special[]" value="五险一金" />五险一金</label>
+			<label class='radio-inline'><input  {if $item['special'] } {if in_array('补充医疗保险',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="补充医疗保险" />补充医疗保险</label>
+			<label class='radio-inline'><input  {if $item['special'] } {if in_array('员工旅游',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="员工旅游" />员工旅游</label>
+			<label class='radio-inline'><input  {if $item['special'] } {if in_array('交通补贴',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="交通补贴" />交通补贴</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('餐饮补贴',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="餐饮补贴" />餐饮补贴</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('出国机会',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="出国机会" />出国机会</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('年终奖金',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="年终奖金" />年终奖金</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('定期体检',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="定期体检" />定期体检</label>
+		    <label class='radio-inline'><input {if $item['special'] } {if in_array('节日福利',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="节日福利" />节日福利</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('双休',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="双休" />双休</label>
+			<label class='radio-inline'><input {if $item['special'] } {if in_array('调休',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="调休" />调休</label>
+		 <label class='radio-inline'><input {if $item['special'] } {if in_array('年假',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="年假" />年假</label>
+		<label class='radio-inline'><input {if $item['special'] } {if in_array('加班补贴',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="加班补贴" />加班补贴</label>
+		<label class='radio-inline'><input {if $item['special'] } {if in_array('职位晋升',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="职位晋升" />职位晋升</label>
+		<label class='radio-inline'><input {if $item['special'] } {if in_array('包食宿',$item['special'])} checked {/if}{/if} type="checkbox" name="special[]" value="包食宿" />包食宿</label>
+		
+
+					</div>
+
+</div>
+
+
+
+<input type="hidden" name="id" id="id" value="{$item['id']}"/>
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">入职要求</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_ueditor('content', $item['content']);}
+	</div>
+</div>
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">首页推荐</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=1 {if $item['isrecommand']==1}checked{/if} /> 是
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=0 {if $item['isrecommand']==0}checked{/if} /> 否
+						 </label>
+					</div>
+				</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>排序</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="sort" id="sort" class="form-control" value="{$item['sort']}" />
+	</div>
+</div>
+
+
+</div>
+
+
+<script language="javascript">
+
+	$(function () {
+		var i = 0;
+		$('#selectimage').click(function () {
+			var editor = KindEditor.editor({
+				allowFileManager: false,
+				imageSizeLimit: '30MB',
+				uploadJson: './index.php?act=attachment&do=upload'
+			});
+			editor.loadPlugin('multiimage', function () {
+				editor.plugin.multiImageDialog({
+					clickFn: function (list) {
+						if (list && list.length > 0) {
+							for (i in list) {
+								if (list[i]) {
+									html = '<li class="imgbox" style="list-type:none">' +
+												'<a class="item_close" href="javascript:;" onclick="deletepic(this);" title="删除"></a>' +
+												'<span class="item_box"> <img src="' + list[i]['url'] + '" style="height:80px"></span>' +
+												'<input type="hidden" name="attachment-new[]" value="' + list[i]['filename'] + '" />' +
+											'</li>';
+									$('#fileList').append(html);
+									i++;
+								}
+							}
+							editor.hideDialog();
+						} else {
+							alert('请先选择要上传的图片！');
+						}
+					}
+				});
+			});
+		});
+	});
+
+	function deletepic(obj) {
+		if (confirm("确认要删除？")) {
+			var $thisob = $(obj);
+			var $liobj = $thisob.parent();
+			var picurl = $liobj.children('input').val();
+			$.post('{php echo $this->createMobileUrl('ajaxdelete',array())}', {pic: picurl}, function (m) {
+				if (m == '1') {
+					$liobj.remove();
+				} else {
+					alert("删除失败");
+				}
+			}, "html");
+		}
+	}
+
+</script>

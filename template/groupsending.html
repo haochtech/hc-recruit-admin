@@ -1,0 +1,212 @@
+{template 'common/header'}
+{template 'common'}
+
+<script type="text/javascript" src="resource/js/lib/jquery-ui-1.10.3.min.js"></script>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('groupsending', array('op' => 'display'))}">群发列表</a></li>
+  	<li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('groupsending', array('op' => 'post'))}" style="font-weight:bold;color:red;">新建群发</a></li>
+
+</ul>
+{if $operation == 'post'}
+
+	<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1" onsubmit='return formcheck2()'>
+
+ 
+      <div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>职位名称</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="jobtitle" id="jobtitle" class="form-control" value="" style="width:200px;" /> <input type="button" id="search" value="查询" class="btn btn-primary col-lg-1"/>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>发送职位</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="companyid" name="companyid" >
+					
+					<option value="0">请选择发送职位</option>
+
+				</select>
+	</div>
+</div>
+
+	<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">发送方式</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='sendway' value=1 checked /> 全部发送
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='sendway' value=0  /> 匹配发送
+						 </label>
+					</div>
+				</div>
+      
+
+<div class="form-group">
+
+
+			<input type="submit" name="submit" value="立即发送" class="btn btn-primary col-lg-1" style="margin-left:300px;" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+</form>
+</div>
+  
+{elseif $operation == 'display'}
+
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">信息</div>
+	<div class="panel-body">
+		
+       <form action="" method="post" class="form-horizontal" role="form" id="form1">
+
+				<div class="form-group">
+
+                    <div class="col-md-6" style="font-weight:bold;">
+
+                      当前最多发送人数：<span style="color:red;">{$sendtotal}</span>
+                    </div>
+
+                    <div class="col-md-6">
+
+						
+
+					</div>
+
+				</div>
+
+            </form>
+      
+      
+	</div>
+</div>
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:5%;">ID</th>
+                  <th style="width:15%;">发送职位</th>
+					<th style="width:25%;">公司</th>
+					<th style="width:10%;">发送人数</th>
+				    <th style="width:10%;">发送发式</th>
+					<th style="width:15%;">	发送时间</th>
+					<th style="text-align:right; width:22%;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['jobtitle']}</td>
+					<td>{$item['companyname']}</td>
+                  	<td>{$item['sendnum']}人</td>
+					<td>{if $item['sendway']==1}
+							全部发布
+							
+						{else}
+								匹配发送
+						{/if}</td>
+					<td>{php echo date('Y-m-d',$item['createtime']);}</td>
+					<td style="text-align:right;">
+						<a href="{php echo $this->createWebUrl('groupsending', array('id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+		$("#search").click(function(){
+
+			$('#form1')[0].submit();
+
+		});
+
+	</script>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+
+	var category = {php echo json_encode($children)};
+	function setProperty(obj,id,type){
+		$(obj).html($(obj).html() + "...");
+		$.post("{php echo $this->createWebUrl('setgoodsproperty')}"
+			,{id:id,type:type, data: obj.getAttribute("data")}
+			,function(d){
+				$(obj).html($(obj).html().replace("...",""));
+				if(type=='type'){
+				 $(obj).html( d.data=='1'?'实体物品':'虚拟物品');
+				}
+				if(type=='status'){
+				 $(obj).html( d.data=='1'?'上架':'下架');
+				}
+				$(obj).attr("data",d.data);
+				if(d.result==1){
+					$(obj).toggleClass("label-info");
+				}
+			}
+			,"json"
+		);
+	}
+
+</script>
+{/if}
+
+<script>
+
+	function formcheck2(){
+    
+    //	alert('okkk');
+    }
+  
+  	$("#search").click(function(){
+    	var jobtitle = $("#jobtitle").val();
+        
+        if(jobtitle == '')
+        {
+        	alert('请输入职位名称');
+        }
+    
+      var url = "./index.php?c=site&a=entry&op=getcompanyjob&do=groupsending&m=weixinmao_zp";
+      
+	  $.ajax({
+			"url": url,
+             data:{jobtitle:jobtitle},
+           datatype:"JSON",
+			success:function(data){ 
+            var json =  JSON.parse(data);
+              console.log(json.data);
+            var list = json.data;
+              $("#houseid").empty();
+              $("#houseid").append("<option value='0'>请选择发送职位</option>"); 
+                  $.each(list, function (index) {  
+                    //循环获取数据    
+                              $("#companyid").append("<option value="+list[index].jobid+">"+list[index].companyname+'-'+list[index].jobtitle+"</optioncompany>"); 
+
+                 // alert(list[index].housename);  
+                  
+                }); 
+			}
+		});
+    
+    
+    
+    })
+</script>
+{template 'common/footer'}

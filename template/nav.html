@@ -1,0 +1,158 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('nav',array('op' =>'display'))}">导航管理 </a></li>
+	<li{if empty($adv['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('nav',array('op' =>'post'))}">添加导航</a></li>
+	{if !empty($adv['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('nav',array('op' =>'post','id'=>$adv['id']))}">编辑导航</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:30px;">ID</th>
+					<th>显示顺序</th>					
+					<th>标题</th>
+					<th>连接</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $adv}
+				<tr>
+					<td>{$adv['id']}</td>
+					<td>{$adv['displayorder']}</td>
+					<td>{$adv['advname']}</td>
+					<td>{$adv['link']}</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('nav', array('op' => 'post', 'id' => $adv['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('nav', array('op' => 'delete', 'id' => $adv['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$adv['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				导航设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="displayorder" class="form-control" value="{$adv['displayorder']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>导航标题</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='advname' name="advname" class="form-control" value="{$adv['advname']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">导航图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('thumb', $adv['thumb'])}
+					</div>
+				</div>
+				 <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">导航连接</label>
+					<div class="col-sm-9 col-xs-12">
+		
+
+
+			<select class="form-control tpl-category-parent we7-select" id="link" name="link">
+				<option value="">请选择类型 </option>
+				<option value="toFindjob" {if $adv['link'] == 'toFindjob' } selected{/if}>工作列表模型</option>
+				<option value="toFindworker" {if $adv['link'] == 'toFindworker'} selected{/if}>人才列表模型</option>
+				<option value="toActive" {if $adv['link'] == 'toActive'} selected{/if}>招聘会列表模型</option>
+				<option value="toArticle" {if $adv['link'] == 'toArticle'} selected{/if}>资讯模型</option>
+				<option value="toMyNote" {if $adv['link'] == 'toMyNote'} selected{/if}>发布简历模型</option>
+				<option value="toMySave" {if $adv['link'] == 'toMySave'} selected{/if}>收藏模型</option>
+				<option value="toNotice" {if $adv['link'] == 'toNotice'} selected{/if}>面试通知模型</option>
+				<option value="toLogin" {if $adv['link'] == 'toLogin'} selected{/if}>企业登录模型</option>
+				<option value="toFindpartjob" {if $adv['link'] == 'toFindpartjob'} selected{/if}>兼职模型</option>
+				<option value="toNearjob" {if $adv['link'] == 'toNearjob'} selected{/if}>附近职位模型</option>
+				<option value="toRegsub" {if $adv['link'] == 'toRegsub'} selected{/if}>申请补贴模型</option>
+				<option value="toUser" {if $adv['link'] == 'toUser'} selected{/if}>会员中心模型</option>
+				<option value="toRegmoney" {if $adv['link'] == 'toRegmoney'} selected{/if}>我要推荐模型</option>
+                <option value="toAgentlist" {if $adv['link'] == 'toAgentlist'} selected{/if}>经纪人列表模型</option>
+<option value="toNotevideo" {if $adv['link'] == 'toNotevideo'} selected{/if}>颜值招聘模型</option>
+<option value="toMoneyjob" {if $adv['link'] == 'toMoneyjob'} selected{/if}>悬赏职位模型</option>	
+              <option value="toInnerUrl" {if $adv['link'] == 'toInnerUrl'} selected{/if}>内连接模型</option>
+				<option value="toMenuUrl" {if $adv['link'] == 'toMenuUrl'} selected{/if}>菜单连接模型</option>
+              <option value="toWxapp" {if $adv['link'] == 'toWxapp'} selected{/if}>跳转小程序模型</option>		
+              <option value="toWebview" {if $adv['link'] == 'toWebview'} selected{/if}>跳转网页模型</option>		
+			</select>
+					</div>
+				</div>
+              
+              
+              <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>appid</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='appid' name="appid" class="form-control" value="{$adv['appid']}" />
+											<span style="font-size:12px;color:red;">小程序APPID</span>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>内连接</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='innerurl' name="innerurl" class="form-control" value="{$adv['innerurl']}" />
+											<span style="font-size:12px;color:red;">仅内连接、菜单连接模型、小程序跳转模型用到</span>
+
+					</div>
+				</div>
+              
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=1' {if $adv['enabled']==1}checked{/if} /> 是
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=0' {if $adv['enabled']==0}checked{/if} /> 否
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+		if ($("#advname").isEmpty()) {
+			Tip.focus("advname", "请填写幻灯片名称!");
+			return false;
+		}
+		return true;
+	}
+</script>
+{/if}
+{template 'common/footer'}

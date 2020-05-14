@@ -1,0 +1,342 @@
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属城市</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="cityid" name="cityid">
+				<option value="0">请选择所属城市</option>
+					{loop $citylist $vo}
+				<option value="{$vo['id']}" {if $item['cityid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属地区</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="areaid" name="areaid">
+				<option value="0">请选择所属地区</option>
+					{loop $arealist $vo}
+				<option value="{$vo['id']}" {if $item['areaid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>姓名</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="name" id="name" class="form-control" value="{$item['name']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>意向职位</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="jobtitle" id="jobtitle" class="form-control" value="{$item['jobtitle']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>性别</label>
+	<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='sex' value=1 {if $item['sex']==1}checked{/if} /> 男
+						 </label>
+
+
+						 <label class='radio-inline'>
+							 <input type='radio' name='sex' value=0 {if $item['sex']==0}checked{/if} /> 女
+						 </label>
+						 
+					</div>
+</div>
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>出生年份</label>
+	<div class="col-sm-8 col-xs-12">
+			<select class="form-control tpl-category-parent we7-select" id="birthday" name="birthday">
+				<option value="0">请选择出生年份</option>
+				{if $birthdaylist }
+				{loop $birthdaylist $vo}
+				<option value="{$vo}" {if $item['birthday'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>最高学历</label>
+	<div class="col-sm-8 col-xs-12">
+			<select class="form-control tpl-category-parent we7-select" id="education" name="education">
+				<option value="0">请选择最高学历</option>
+				{if $educationlist }
+				{loop $educationlist $vo}
+				<option value="{$vo}" {if $item['education'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>工作经验</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="express" name="express">
+				<option value="0">请选择工作经验</option>
+				{if $expresslist }
+				{loop $expresslist $vo}
+				<option value="{$vo}" {if $item['express'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>现居住地</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="address" id="address" class="form-control" value="{$item['address']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>邮箱</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="email" id="email" class="form-control" value="{$item['email']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>手机号</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="tel" id="tel" class="form-control" value="{$item['tel']}" />
+	</div>
+</div>
+<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>目前状态</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="currentstatus" name="currentstatus">
+				<option value="0">请选择目前状态</option>
+				{if $currentlist }
+				{loop $currentlist $vo}
+				<option value="{$vo}" {if $item['currentstatus'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>工作性质</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="worktype" name="worktype">
+				<option value="0">请选择工作性质</option>
+				{if $worktypelist }
+				{loop $worktypelist $vo}
+				<option value="{$vo}" {if $item['worktype'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">期望行业</label>
+					<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="jobcateid" name="jobcateid">
+				<option value="0">请选择期望行业</option>
+				{if $jobcatelist }
+				{loop $jobcatelist $vo}
+				<option value="{$vo['id']}" {if $item['jobcateid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+
+</div>
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">期望薪资</label>
+					<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="money" name="money">
+				<option value="0">请选择期望薪资</option>
+				{if $moneylist }
+				{loop $moneylist $vo}
+				<option value="{$vo}" {if $item['money'] == $vo} selected {/if}>{$vo}</option>
+				{/loop}
+				{/if}
+				
+			</select>
+	</div>
+
+</div>
+
+
+<input type="hidden" name="id" id="id" value="{$item['id']}"/>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">形象照片</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_form_field_image('thumb', $item['avatarUrl'], '', array('extras' => array('text' => 'readonly')))}
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">自我介绍及工作经历</label>
+	<div class="col-sm-9 col-xs-12">
+
+		<textarea name="content" class="form-control"  rows="5"  >{$item['content']}</textarea>
+	</div>
+</div>
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='status' value=0 {if $item['status']==0}checked{/if} /> 显示
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='status' value=1 {if $item['status']==1}checked{/if} /> 隐藏
+						 </label>
+					</div>
+				</div>
+
+
+<!--
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">首页推荐</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=1 {if $item['isrecommand']==1}checked{/if} /> 是
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=0 {if $item['isrecommand']==0}checked{/if} /> 否
+						 </label>
+					</div>
+				</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>排序</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="sort" id="sort" class="form-control" value="{$item['sort']}" />
+	</div>
+</div>
+
+-->
+</div>
+
+
+<script language="javascript">
+
+	$(function () {
+
+
+		  	$("#cityid").change(function(){
+    	var cityid = $("#cityid").val();
+        
+    //  alert(cityid);
+    
+      var url = "./index.php?c=site&a=entry&op=getcity&do=notelist&m=weixinmao_zp";
+      
+      
+     // alert(url);
+		$.ajax({
+			"url": url,
+             data:{cityid:cityid},
+           datatype:"JSON",
+			success:function(data){
+              
+            var json =  JSON.parse(data);
+              console.log(json.data);
+     var list = json.data;
+              $("#areaid").empty();
+              $("#areaid").append("<option value='0'>请选择所属地区</option>"); 
+                  $.each(list, function (index) {  
+                    //循环获取数据    
+                              $("#areaid").append("<option value="+list[index].id+">"+list[index].name+"</option>"); 
+
+                 // alert(list[index].housename);  
+                  
+                }); 
+			}
+		});
+    
+    
+    
+    })
+
+
+
+
+		var i = 0;
+		$('#selectimage').click(function () {
+			var editor = KindEditor.editor({
+				allowFileManager: false,
+				imageSizeLimit: '30MB',
+				uploadJson: './index.php?act=attachment&do=upload'
+			});
+			editor.loadPlugin('multiimage', function () {
+				editor.plugin.multiImageDialog({
+					clickFn: function (list) {
+						if (list && list.length > 0) {
+							for (i in list) {
+								if (list[i]) {
+									html = '<li class="imgbox" style="list-type:none">' +
+												'<a class="item_close" href="javascript:;" onclick="deletepic(this);" title="删除"></a>' +
+												'<span class="item_box"> <img src="' + list[i]['url'] + '" style="height:80px"></span>' +
+												'<input type="hidden" name="attachment-new[]" value="' + list[i]['filename'] + '" />' +
+											'</li>';
+									$('#fileList').append(html);
+									i++;
+								}
+							}
+							editor.hideDialog();
+						} else {
+							alert('请先选择要上传的图片！');
+						}
+					}
+				});
+			});
+		});
+	});
+
+	function deletepic(obj) {
+		if (confirm("确认要删除？")) {
+			var $thisob = $(obj);
+			var $liobj = $thisob.parent();
+			var picurl = $liobj.children('input').val();
+			$.post('{php echo $this->createMobileUrl('ajaxdelete',array())}', {pic: picurl}, function (m) {
+				if (m == '1') {
+					$liobj.remove();
+				} else {
+					alert("删除失败");
+				}
+			}, "html");
+		}
+	}
+
+</script>

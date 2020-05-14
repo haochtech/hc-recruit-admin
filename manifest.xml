@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.zx-xcx.com" versionCode="0.8,1.0">
+	<application setting="false">
+		<name><![CDATA[求职招聘版]]></name>
+		<identifie><![CDATA[weixinmao_zp]]></identifie>
+		<version><![CDATA[4.0.73]]></version>
+		<type><![CDATA[enterprise]]></type>
+		<ability><![CDATA[求职招聘版]]></ability>
+		<description><![CDATA[求职招聘版]]></description>
+		<author><![CDATA[zxgc]]></author>
+		<url><![CDATA[https://www.zx-xcx.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+		<supports>
+			<item type="wxapp" />
+		</supports>
+	</platform>
+	<bindings>
+		<cover>
+		</cover>
+		<menu> 
+			<entry title="普通用户套餐管理 " direct="false" state="" do="lookrole"/> 
+			<entry title="提现管理 " direct="false" state="" do="moneylist"/> 
+			<entry title="系统设置 " direct="false" state="" do="intro"/> 
+			<entry title="导航自定义管理 " direct="false" state="" do="nav"/> 
+			<entry title="幻灯片管理 " direct="false" state="" do="adv"/> 
+			<entry title="企业管理 " direct="false" state="" do="company"/> 
+			<entry title="分配企业账号 " direct="false" state="" do="companyaccount"/> 
+			<entry title="职位管理 " direct="false" state="" do="joblist"/> 
+			<entry title="简历管理 " direct="false" state="" do="notelist"/> 
+			<entry title="区域管理 " direct="false" state="" do="area"/> 
+			<entry title="职业类别管理 " direct="false" state="" do="jobcate"/> 
+			<entry title="薪资范围管理 " direct="false" state="" do="jobprice"/> 
+			<entry title="资讯分类 " direct="false" state="" do="cate"/> 
+			<entry title="资讯管理 " direct="false" state="" do="content"/> 
+			<entry title="招聘会管理 " direct="false" state="" do="active"/> 
+			<entry title="订单管理 " direct="false" state="" do="order"/> 
+			<entry title="模板消息管理 " direct="false" state="" do="msgtpl"/> 
+			<entry title="企业套餐管理 " direct="false" state="" do="companyrole"/> 
+			<entry title="城市管理 " direct="false" state="" do="city"/> 
+			<entry title="支付职位标签管理 " direct="false" state="" do="payjoblist"/> 
+			<entry title="推荐入职管理 " direct="false" state="" do="regmoney"/> 
+			<entry title="补贴申请管理 " direct="false" state="" do="regsub"/> 
+			<entry title="用户管理 " direct="false" state="" do="userinfo"/> 
+			<entry title="经纪人管理 " direct="false" state="" do="agent"/> 
+			<entry title="置顶支付标签管理 " direct="false" state="" do="paytoplist"/> 
+			<entry title="支付简历标签管理 " direct="false" state="" do="toplist"/> 
+			<entry title="用户分享职位管理 " direct="false" state="" do="sharelist"/> 
+			<entry title="群发助手管理 " direct="false" state="" do="groupsending"/> 
+			<entry title="应聘管理 " direct="false" state="" do="jobrecord"/>
+		</menu>
+		<home>
+		</home>
+		<page> 
+			<entry title="首页 " direct="false" state="" do="/weixinmao_zp/pages/index/index"/>
+		</page>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_active` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`title` varchar(200),
+`createtime` int(10) unsigned NOT NULL,
+`content` text NOT NULL,
+`sort` int(10),
+`pid` int(10),
+`hits` int(10),
+`status` tinyint(10),
+`thumb` varchar(200),
+`money` float(10,2),
+`begintime` varchar(100),
+`mainwork` varchar(100),
+`fuwork` varchar(100),
+`endtime` varchar(100),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_activerecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`aid` int(10),
+`companyid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_adv` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`weid` int(11),
+`advname` varchar(50),
+`link` varchar(255),
+`thumb` varchar(255),
+`displayorder` int(11),
+`enabled` int(11),
+`toway` varchar(30),
+`appid` varchar(50),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`weid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`displayorder`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_agent` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`name` varchar(200),
+`tel` varchar(60),
+`email` varchar(30),
+`weixin` varchar(30),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_agent_record` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_agent_setting` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`notemoney` float(10,2),
+`companymoney` float(10,2),
+`uniacid` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_area` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`name` varchar(50),
+`sort` int(11),
+`enabled` int(11),
+`cityid` int(10),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_bindcard` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`name` varchar(30),
+`account` varchar(60),
+`createtime` int(10) unsigned NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_category` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`weid` int(10) unsigned NOT NULL,
+`name` varchar(50) NOT NULL,
+`thumb` varchar(255) NOT NULL,
+`parentid` int(10) unsigned NOT NULL,
+`isrecommand` int(10),
+`description` varchar(500) NOT NULL,
+`displayorder` tinyint(3) unsigned NOT NULL,
+`enabled` tinyint(1) unsigned NOT NULL,
+`model` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_city` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`name` varchar(50),
+`sort` int(11),
+`enabled` int(11),
+`ishot` tinyint(10),
+`firstname` varchar(30),
+`ison` tinyint(10),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_company` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`companyname` varchar(50) NOT NULL,
+`companycate` varchar(50) NOT NULL,
+`companytype` varchar(50) NOT NULL,
+`companyworker` varchar(30) NOT NULL,
+`mastername` varchar(50) NOT NULL,
+`address` varchar(100) NOT NULL,
+`tel` varchar(50) NOT NULL,
+`content` text NOT NULL,
+`createtime` int(10) NOT NULL,
+`endtime` int(10) NOT NULL,
+`thumb` varchar(100) NOT NULL,
+`areaid` int(10) NOT NULL,
+`status` tinyint(10) NOT NULL,
+`sort` int(10) NOT NULL,
+`uniacid` int(10) NOT NULL,
+`isrecommand` tinyint(10) NOT NULL,
+`lng` decimal(10,6),
+`lat` decimal(10,6),
+`notenum` int(10),
+`cityid` int(10),
+`cardimg` varchar(100),
+`jobnum` int(10),
+`roleid` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_companyaccount` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`name` varchar(60),
+`password` varchar(60),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`logintime` int(10) NOT NULL,
+`companyid` int(10) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_companyrole` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`title` varchar(30),
+`money` float(10,2),
+`days` mediumint(10),
+`sort` int(11),
+`enabled` int(11),
+`jobnum` int(10),
+`notenum` int(10),
+`isinit` tinyint(10),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_content` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`title` varchar(200),
+`createtime` int(10) unsigned NOT NULL,
+`content` text NOT NULL,
+`sort` int(10),
+`pid` int(10),
+`sid` int(10),
+`hits` int(10),
+`status` tinyint(10),
+`thumb` varchar(200),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_intro` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`createtime` int(10) unsigned NOT NULL,
+`content` text NOT NULL,
+`name` varchar(100),
+`logo` varchar(150),
+`address` varchar(200),
+`tel` varchar(50),
+`opentime` varchar(30),
+`lng` decimal(10,6),
+`lat` decimal(10,6),
+`qq` varchar(50),
+`email` varchar(50),
+`city` varchar(30),
+`ischeck` tinyint(10),
+`iscompany` tinyint(10),
+`isnote` tinyint(10),
+`notenum` int(10),
+`issms` tinyint(10),
+`smsaccount` varchar(50),
+`smspwd` varchar(50),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_invaterecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`companyid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`invatetime` int(10),
+`islook` tinyint(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_job` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`jobtitle` varchar(50),
+`dmoney` float(10,2),
+`worktype` mediumint(10) NOT NULL,
+`num` int(10),
+`sex` tinyint(10),
+`age` varchar(20),
+`special` varchar(200) NOT NULL,
+`content` text,
+`vprice` float(20,2),
+`companyid` int(10),
+`createtime` int(10),
+`sort` int(10),
+`status` tinyint(10),
+`uniacid` int(10),
+`isrecommand` tinyint(10),
+`money` float(10,2) NOT NULL,
+`education` varchar(30),
+`express` varchar(30),
+`jobtype` varchar(30),
+`endtime` int(10),
+`toptime` int(10),
+`noteprice` float(10,2),
+`updatetime` int(10),
+PRIMARY KEY (`id`,`special`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_jobcate` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`name` varchar(50),
+`sort` int(11),
+`enabled` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_jobnote` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`jobtitle` varchar(50),
+`name` varchar(200),
+`sex` tinyint(10),
+`tel` varchar(60),
+`birthday` varchar(30),
+`education` varchar(30),
+`express` varchar(30),
+`address` varchar(30),
+`email` varchar(30),
+`currentstatus` varchar(30),
+`worktype` varchar(30),
+`jobcateid` mediumint(9) NOT NULL,
+`money` varchar(30),
+`areaid` mediumint(10) NOT NULL,
+`content` text,
+`createtime` int(10) unsigned NOT NULL,
+`refreshtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`avatarUrl` varchar(200),
+`cityid` int(10),
+`shareid` int(10),
+`tid` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_jobprice` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`name` varchar(50),
+`beginprice` int(10),
+`endprice` int(10),
+`sort` int(11),
+`enabled` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_jobrecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`jobid` int(10),
+`companyid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`invatetime` int(10),
+`shareid` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_jobsave` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`jobid` int(10),
+`companyid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_lookrecord` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`companyid` int(10),
+`noteid` int(10),
+`createtime` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`createtime`),
+KEY `indx_displayorder` (`noteid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_lookrolerecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`money` int(10),
+`totalmoney` int(10),
+`type` varchar(30),
+`pid` int(10),
+`mark` varchar(50),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_lookuserrecord` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`uid` int(10),
+`noteid` int(10),
+`createtime` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`createtime`),
+KEY `indx_displayorder` (`noteid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_moneyrecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`dmoney` float(10,2),
+`dtotalmoney` float(10,2),
+`money` float(10,2),
+`totalmoney` float(10,2),
+`type` varchar(30),
+`pid` int(10),
+`mark` varchar(50),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_msgidlist` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`companyid` int(10),
+`form_id` varchar(30),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_msgtpl` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`weid` int(11),
+`msgid` varchar(100),
+`msgcontent` varchar(200),
+`enabled` int(11),
+`msgtype` tinyint(10),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`weid`),
+KEY `indx_enabled` (`enabled`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_nav` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`weid` int(11),
+`advname` varchar(50),
+`link` varchar(255),
+`thumb` varchar(255),
+`displayorder` int(11),
+`enabled` int(11),
+`appid` varchar(60),
+`innerurl` varchar(255),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`weid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`displayorder`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_notevideo` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`noteid` int(10),
+`videourl` varchar(30),
+`picurl` varchar(60),
+`content` varchar(60),
+`updatetime` int(10) unsigned NOT NULL,
+`imageurl` varchar(200),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_order` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`pid` int(10),
+`uid` int(10),
+`name` varchar(30),
+`tel` varchar(30),
+`orderid` varchar(100),
+`money` float(10,2),
+`paytime` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`paid` tinyint(10),
+`status` tinyint(10),
+`title` varchar(50),
+`type` varchar(30),
+`companyid` int(10),
+`toplistid` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_partjob` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`jobtitle` varchar(50),
+`worktype` mediumint(10) NOT NULL,
+`num` int(10),
+`sex` tinyint(10),
+`age` varchar(20),
+`special` varchar(200) NOT NULL,
+`content` text,
+`vprice` float(20,2),
+`companyid` int(10),
+`createtime` int(10),
+`sort` int(10),
+`status` tinyint(10),
+`uniacid` int(10),
+`isrecommand` tinyint(10),
+`money` float(10,2) NOT NULL,
+`education` varchar(30),
+`express` varchar(30),
+`jobtype` varchar(30),
+`dmoney` float(10,2),
+`beginjobdate` varchar(30),
+`endjobdate` varchar(30),
+`beginjobtime` varchar(30),
+`endjobtime` varchar(30),
+`workaddress` varchar(50),
+`address` varchar(50),
+PRIMARY KEY (`id`,`special`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_payjoblist` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`title` varchar(30),
+`money` float(10,2),
+`days` mediumint(10),
+`sort` int(11),
+`enabled` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_paytoplist` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`title` varchar(30),
+`money` float(10,2),
+`days` mediumint(10),
+`sort` int(11),
+`enabled` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_regmoney` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`jobname` varchar(200),
+`jobtel` varchar(60),
+`companyname` varchar(100),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_regsub` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`name` varchar(200),
+`tel` varchar(60),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`date` varchar(30),
+`jobdate` varchar(30),
+`companyname` varchar(100),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_sendnote` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`uniacid` int(10),
+`companyid` int(10),
+`noteid` int(10),
+`money` float(10,0),
+`mark` varchar(200),
+`status` tinyint(10),
+`paid` tinyint(10),
+`orderid` varchar(100),
+`createtime` int(10),
+`paytime` int(10),
+`gettime` int(10),
+`getpaytime` int(10),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_sendrecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`jobid` int(10),
+`sendnum` int(10),
+`sendway` tinyint(10),
+`createtime` int(10) unsigned NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_sharerecord` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`jobid` int(10),
+`companyid` int(10),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`view` int(10),
+`sendnum` int(10),
+`usednum` int(10),
+`money` float(10,2),
+`lastmoney` float(10,2),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_toplist` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11),
+`title` varchar(30),
+`money` float(10,2),
+`days` mediumint(10),
+`sort` int(11),
+`enabled` int(11),
+PRIMARY KEY (`id`),
+KEY `indx_weid` (`uniacid`),
+KEY `indx_enabled` (`enabled`),
+KEY `indx_displayorder` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_weixinmao_zp_userinfo` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) unsigned NOT NULL,
+`uid` int(10),
+`name` varchar(200),
+`tel` varchar(60),
+`createtime` int(10) unsigned NOT NULL,
+`status` tinyint(10),
+`avatarUrl` varchar(200),
+`companyid` int(10),
+`agentid` int(11),
+`openid` varchar(100),
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_weixinmao_zp_active`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_activerecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_adv`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_agent`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_agent_record`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_agent_setting`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_area`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_bindcard`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_category`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_city`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_company`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_companyaccount`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_companyrole`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_content`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_intro`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_invaterecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_job`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_jobcate`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_jobnote`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_jobprice`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_jobrecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_jobsave`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_lookrecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_lookrolerecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_lookuserrecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_moneyrecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_msgidlist`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_msgtpl`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_nav`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_notevideo`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_order`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_partjob`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_payjoblist`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_paytoplist`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_regmoney`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_regsub`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_sendnote`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_sendrecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_sharerecord`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_toplist`;
+DROP TABLE IF EXISTS `ims_weixinmao_zp_userinfo`;
+]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

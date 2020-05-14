@@ -1,0 +1,460 @@
+{template 'common/header'}
+{template 'common'}
+
+<script type="text/javascript" src="resource/js/lib/jquery-ui-1.10.3.min.js"></script>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('notelist', array('op' => 'post'))}">添加简历信息</a></li>
+
+	<li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('notelist', array('op' => 'display'))}">管理简历信息</a></li>
+ 
+   	<li {if $operation == 'sendnote' || $operation == 'sendnotelist'} class="active"{/if}><a href="{php echo $this->createWebUrl('notelist', array('op' => 'sendnotelist'))}" style="font-weight:bold;color:red;">派遣企业简历列表</a></li>
+</ul>
+{if $operation == 'post'}
+<link type="text/css" rel="stylesheet" href="../addons/ewei_shopping/images/uploadify_t.css" />
+<style type='text/css'>
+	.tab-pane {padding:20px 0 20px 0;}
+</style>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1" onsubmit='return formcheck()'>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				{if empty($item['id'])}添加简历信息{else}编辑简历信息{/if}
+			</div>
+			<div class="panel-body">
+				
+				<div class="tab-content">
+					<div class="tab-pane  active" id="tab_basic">{template 'notelist_basic'}</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	var category = {php echo json_encode($children)};
+
+	$(function () {
+		window.optionchanged = false;
+		$('#myTab a').click(function (e) {
+			e.preventDefault();//阻止a链接的跳转行为
+			$(this).tab('show');//显示当前选中的链接及关联的content
+		})
+	});
+
+	function formcheck(){
+	
+/*
+	     if($("#cityid").val() == 0) {
+			util.message("请选择城市");
+			return false;
+		}
+
+		 if($("#areaid").val() == 0) {
+			util.message("请选择区域");
+			return false;
+		}
+
+
+		if($("#name").isEmpty()) {
+			util.message("请输入姓名");
+			return false;
+		}
+	
+
+		if($("#jobtitle").isEmpty()) {
+			util.message("请输入意向职位");
+			return false;
+		}
+		 if($("#birthday").val() == 0) {
+			util.message("请选择出生年份");
+			return false;
+		}
+	 if($("#education").val() == 0) {
+			util.message("请选择最高学历");
+			return false;
+		}
+	
+		 if($("#express").val() == 0) {
+			util.message("请选择工作经验");
+			return false;
+		}
+	*/
+		var content = $("textarea[name='content']").val();
+
+		if (content == '') {
+			util.message("请输入详情");
+			return false;
+		}
+		
+		
+		
+		var full = checkoption();
+		if(!full){return false;}
+	
+		return true;
+	}
+	
+	function checkoption(){
+		
+		var full = true;
+		if( $("#hasoption").get(0).checked){
+			$(".spec_title").each(function(i){
+				if( $(this).isEmpty()) {
+					$('#myTab a[href="#tab_option"]').tab('show');
+					Tip.focus(".spec_title:eq(" + i + ")","请输入规格名称!","top");
+					full =false;
+					return false;
+				}
+			});
+			$(".spec_item_title").each(function(i){
+				if( $(this).isEmpty()) {
+					$('#myTab a[href="#tab_option"]').tab('show');
+					Tip.focus(".spec_item_title:eq(" + i + ")","请输入规格项名称!","top");
+					full =false;
+					return false;
+				}
+			});
+		}
+		if(!full) { return false; }
+		return full;
+	}
+
+</script>
+
+
+
+{elseif $operation == 'sendnote'}
+
+
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1" onsubmit='return formcheck2()'>
+
+ 
+      <div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>绑定企业名称</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companyname" id="companyname" class="form-control" value="" style="width:200px;" /> <input type="button" id="search" value="查询" class="btn btn-primary col-lg-1"/>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>绑定企业</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="companyid" name="companyid" >
+					
+					<option value="0">请选择企业</option>
+
+				</select>
+	</div>
+</div>
+
+      
+      
+ 
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>结算金额</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="money" id="money" class="form-control" value="" />
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>备注</label>
+	<div class="col-sm-9 col-xs-12">
+		<textarea class="form-control" name="mark" ></textarea>  
+	</div>
+</div>
+<input type="hidden" name="noteid" id="noteid" value="{$noteid}"/>
+<div class="form-group">
+
+
+			<input type="submit" name="submit" value="立即派遣" class="btn btn-primary col-lg-1" style="margin-left:300px;" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{elseif $operation == 'display'}
+
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="weixinmao_zp" />
+			<input type="hidden" name="do" value="notelist" />
+			<input type="hidden" name="op" value="display" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">姓名</label>
+				<div class="col-xs-8 col-sm-8 col-lg-9">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+					
+				</div>
+					<div class="col-xs-4 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:5%;">ID</th>
+					<th style="width:7%;">城市</th>
+					<th style="width:7%;">姓名</th>
+					<th style="width:7%;">性别</th>
+					<th style="width:7%;">电话</th>
+                     <th style="width:7%;">	学历</th>
+					<th style="width:7%;">意向职位</th>
+				    <th style="width:7%;">出生年份</th>
+					<th style="width:7%;">工作经验 </th>
+					<th style="width:7%;">现居住地</th>
+					<th style="width:8%;">创建时间</th>
+                  <th style="width:8%;">状态</th>
+					<th style="text-align:center; width:15%;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['cityname']}</td>
+					<td>{$item['name']}</td>
+					<td>	{if $item['sex']==1}
+								男
+								{else}
+								女
+								{/if}</td>
+				    <td>{$item['tel']}</td>
+                  <td>{$item['education']}</td>
+					<td>{$item['jobtitle']}</td>
+					<td>{$item['birthday']}</td>
+					<td>{$item['express']}</td>
+					
+					<td>{$item['address']}</td>
+					<td>{php echo date('Y-m-d',$item['createtime']);}</td>
+					<td>	{if $item['status']==0}
+									<span class='label label-success '>正常</span>
+								{else}
+							
+								<span class='label label-danger'>已隐藏</span>
+								{/if} {if $item['send']==1}/<span class='label label-danger'>已派送企业</span> {/if}</td>
+					<td style="text-align:right;">
+                      					<a href="{php echo $this->createWebUrl('notelist', array('id' => $item['id'], 'op' => 'sendnote'))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="编辑">派送给企业</a>&nbsp;&nbsp;
+
+					<a href="{php echo $this->createWebUrl('notelist', array('id' => $item['id'], 'op' => 'post'))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="编辑"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+					<a href="{php echo $this->createWebUrl('notelist', array('id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+
+	var category = {php echo json_encode($children)};
+	function setProperty(obj,id,type){
+		$(obj).html($(obj).html() + "...");
+		$.post("{php echo $this->createWebUrl('setgoodsproperty')}"
+			,{id:id,type:type, data: obj.getAttribute("data")}
+			,function(d){
+				$(obj).html($(obj).html().replace("...",""));
+				if(type=='type'){
+				 $(obj).html( d.data=='1'?'实体物品':'虚拟物品');
+				}
+				if(type=='status'){
+				 $(obj).html( d.data=='1'?'上架':'下架');
+				}
+				$(obj).attr("data",d.data);
+				if(d.result==1){
+					$(obj).toggleClass("label-info");
+				}
+			}
+			,"json"
+		);
+	}
+
+</script>
+
+{elseif $operation == 'sendnotelist'}
+
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="weixinmao_zp" />
+			<input type="hidden" name="do" value="notelist" />
+			<input type="hidden" name="op" value="display" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">姓名</label>
+				<div class="col-xs-8 col-sm-8 col-lg-9">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+					
+				</div>
+					<div class="col-xs-4 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:3%;">ID</th>
+                  <th style="width:10%;">派遣企业</th>
+                  <th style="width:8%;">支付费用</th>
+					<th style="width:6%;">城市</th>
+					<th style="width:7%;">姓名</th>
+					<th style="width:5%;">性别</th>
+					<th style="width:7%;">电话</th>
+					<th style="width:7%;">工作经验 </th>
+					<th style="width:8%;">派遣时间</th>
+                    <th style="width:8%;">入职时间</th>
+                  <th style="width:8%;">付费期限</th>
+                   <th style="width:8%;">支付时间</th>
+                  <th style="width:8%;">状态</th>
+					<th style="text-align:center; width:15%;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+                  	<td>{$item['companyname']}</td>
+                  <td>￥{$item['money']}</td>
+					<td>{$item['cityname']}</td>
+					<td>{$item['name']}</td>
+					<td>	{if $item['sex']==1}
+								男
+								{else}
+								女
+								{/if}</td>
+				    <td>{$item['tel']}</td>
+					<td>{$item['express']}</td>
+					<td>{php echo date('Y-m-d',$item['createtime']);}</td>
+                  <td>{if $item['status']==1}  {php echo date('Y-m-d',$item['gettime']);} {else} <span class='label label-danger '>等待入职</span> {/if} </td>
+                  
+                  <td>{if $item['status']==1}  {php echo date('Y-m-d',$item['getpaytime']);} {else} <span class='label label-danger '>等待入职</span> {/if}</td>
+                  
+                  <td>	{if $item['paid']==1} {php echo date('Y-m-d',$item['paytime']);}   {else} <span class='label label-danger '>未支付</span> {/if}</td>
+					<td>	{if $item['status']==0}
+									<span class='label label-danger '>企业未接收入职</span>
+								{else}
+							
+								<span class='label label-success'>企业已接收入职</span>
+                      				{if $item['paid']==0}
+                      					<span class='label label-danger '>未支付</span>
+
+                                    {else}
+                                  	<span class='label label-success'>已支付</span>
+
+                                     {/if}
+                      				
+								{/if} </td>
+					<td style="text-align:center;">
+                     <!-- 
+                     <a href="{php echo $this->createWebUrl('notelist', array('id' => $item['id'], 'op' => 'sendnote'))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="编辑">派送给企业</a>&nbsp;&nbsp;
+					-->
+					<a href="{php echo $this->createWebUrl('notelist', array('id' => $item['id'], 'op' => 'deletesendnote'))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</div>
+</div>
+
+
+{/if}
+
+
+<script>
+
+	function formcheck2(){
+    
+    //	alert('okkk');
+    }
+  
+  	$("#search").click(function(){
+    	var companyname = $("#companyname").val();
+        
+        if(companyname == '')
+        {
+        	alert('请输入企业名称');
+        }
+    
+      var url = "./index.php?c=site&a=entry&op=getcompany&do=notelist&m=weixinmao_zp";
+      
+	  $.ajax({
+			"url": url,
+             data:{companyname:companyname},
+           datatype:"JSON",
+			success:function(data){ 
+            var json =  JSON.parse(data);
+              console.log(json.data);
+            var list = json.data;
+              $("#houseid").empty();
+              $("#houseid").append("<option value='0'>请选择企业</option>"); 
+                  $.each(list, function (index) {  
+                    //循环获取数据    
+                              $("#companyid").append("<option value="+list[index].id+">"+list[index].companyname+"</optioncompany>"); 
+
+                 // alert(list[index].housename);  
+                  
+                }); 
+			}
+		});
+    
+    
+    
+    })
+</script>
+{template 'common/footer'}

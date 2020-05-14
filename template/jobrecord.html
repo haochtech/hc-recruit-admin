@@ -1,0 +1,118 @@
+{template 'common/header'}
+{template 'common'}
+
+<script type="text/javascript" src="resource/js/lib/jquery-ui-1.10.3.min.js"></script>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('jobrecord', array('op' => 'display'))}">应聘管理</a></li>
+</ul>
+
+
+{if $operation == 'display'}
+
+<div class="main">
+	<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="weixinmao_zp" />
+			<input type="hidden" name="do" value="jobrecord" />
+			<input type="hidden" name="op" value="display" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+				<div class="col-xs-8 col-sm-8 col-lg-9">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+					
+				</div>
+					<div class="col-xs-4 col-sm-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+		
+		</form>
+	</div>
+</div>
+<style>
+.label{cursor:pointer;}
+</style>
+<div class="panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+                  <th style="width:5%;">ID</th>
+					<th style="width:10%;">应聘人</th>
+					<th style="width:10%;">应聘人电话</th>
+                  	<th style="width:20%;">公司名称	</th>
+					<th style="width:10%;">应聘职位</th>
+					<th style="width:10%;">创建时间</th>
+					<th style="width:10%;">状态</th>
+					<th style="text-align:right; width:10%;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['name']}</td>
+					<td>{$item['tel']}</td>
+					<td>{$item['companyname']}</td>
+				    <td>{$item['jobtitle']}</td>
+					<td>{php echo date('Y-m-d',$item['createtime']);}</td>
+
+					<td>
+					{if $item['status']==1}
+									<span class='label label-success '>企业已邀请</span>
+								{else}
+							
+								<span class='label label-danger'>企业未邀请</span>
+								{/if}
+					</td>
+					
+					<td style="text-align:right;">
+
+						<a href="{php echo $this->createWebUrl('jobrecord', array('id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+
+	var category = {php echo json_encode($children)};
+	function setProperty(obj,id,type){
+		$(obj).html($(obj).html() + "...");
+		$.post("{php echo $this->createWebUrl('setgoodsproperty')}"
+			,{id:id,type:type, data: obj.getAttribute("data")}
+			,function(d){
+				$(obj).html($(obj).html().replace("...",""));
+				if(type=='type'){
+				 $(obj).html( d.data=='1'?'实体物品':'虚拟物品');
+				}
+				if(type=='status'){
+				 $(obj).html( d.data=='1'?'上架':'下架');
+				}
+				$(obj).attr("data",d.data);
+				if(d.result==1){
+					$(obj).toggleClass("label-info");
+				}
+			}
+			,"json"
+		);
+	}
+
+</script>
+{/if}
+{template 'common/footer'}

@@ -1,0 +1,113 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('msgtpl',array('op' =>'display'))}">模板消息</a></li>
+	<li{if empty($adv['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('msgtpl',array('op' =>'post'))}">添加模板消息</a></li>
+	{if !empty($adv['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('msgtpl',array('op' =>'post','id'=>$adv['id']))}">编辑模板消息</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:30px;">ID</th>
+					<th>内容</th>
+					<th>模板ID</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $adv}
+				<tr>
+					<td>{$adv['id']}</td>
+					<td>{$adv['msgcontent']}</td>
+					<td>{$adv['msgid']}</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('msgtpl', array('op' => 'post', 'id' => $adv['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('msgtpl', array('op' => 'delete', 'id' => $adv['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$adv['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				模板消息设置
+			</div>
+			<div class="panel-body">
+			
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>模板ID</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='msgid' name="msgid" class="form-control" value="{$adv['msgid']}" />
+					</div>
+				</div>
+				
+				 <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">模板内容</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="msgcontent" class="form-control" value="{$adv['msgcontent']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="msgtype" name="msgtype">
+				<option value="0">请选择类型</option>
+				<option value="1" {if $adv['msgtype'] == 1} selected {/if}>企业接收</option>
+				<option value="2" {if $adv['msgtype'] == 2} selected {/if}>应聘者</option>
+                <option value="3" {if $adv['msgtype'] == 3} selected {/if}>匹配群发通知</option>
+		
+						
+				
+			</select>
+	</div>
+</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=1' {if $adv['enabled']==1}checked{/if} /> 是
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=0' {if $adv['enabled']==0}checked{/if} /> 否
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+		
+		return true;
+	}
+</script>
+{/if}
+{template 'common/footer'}

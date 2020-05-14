@@ -1,0 +1,139 @@
+{template 'common/header'}
+{template 'common'}
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('companyaccount',array('op' =>'display'))}">企业账号列表</a></li>
+	<li{if empty($companyaccount['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('companyaccount',array('op' =>'post'))}">添加企业账号</a></li>
+	{if !empty($companyaccount['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('companyaccount',array('op' =>'post','id'=>$adv['id']))}">编辑企业账号</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:30px;">ID</th>
+					<th>账号</th>					
+					<th>所属企业</th>
+                    <th>申请时间</th>
+						<th>状态</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $vo}
+				<tr>
+					<td>{$vo['id']}</td>
+					<td>{$vo['name']}</td>
+					<td>{$vo['companyname']}</td>
+					<td>{php echo date('Y-m-d',$vo['createtime']);}</td>
+
+					<td>
+					{if $vo['status']==1}
+								<span class='label label-success'>正常</span>
+								{else}
+								<span class='label label-danger'>等待审核</span>
+								{/if}
+					</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('companyaccount', array('op' => 'post', 'id' => $vo['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('companyaccount', array('op' => 'delete', 'id' => $vo['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$companyaccount['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				分配企业账户
+			</div>
+			<div class="panel-body">
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>账号</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='name' name="name" class="form-control" value="{$companyaccount['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>密码</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='password' name="password" class="form-control" value="" />
+					</div>
+				</div>
+		
+			  <div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属企业</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="companyid" name="companyid">
+				<option value="0">请选择所属公司</option>
+				{loop $companylist $vo}
+				<option value="{$vo['id']}" {if $companyaccount['companyid'] == $vo['id']} selected {/if}>{$vo['companyname']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+			
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=1' {if $companyaccount['status']==1}checked{/if} /> 是
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='enabled' value=0' {if $companyaccount['status']==0}checked{/if} /> 否
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+		if ($("#name").isEmpty()) {
+			Tip.focus("name", "请填写企业登录账号");
+			return false;
+		}
+		/*
+		if($("#password").isEmpty())
+			{
+			   Tip.focus("password", "请填写企业登录密码");
+				return false;
+			}
+		*/
+			if($("#companyid").val() ==0 )
+			{
+			   Tip.focus("companyid", "请选择招聘企业");
+				return false;
+			}
+		return true;
+	}
+</script>
+{/if}
+{template 'common/footer'}

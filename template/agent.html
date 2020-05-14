@@ -1,0 +1,203 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('agent',array('op' =>'display'))}">经纪人列表</a></li>
+
+	<li {if $operation == 'setting'} class="active" {/if}><a href="{php echo $this->createWebUrl('agent',array('op' =>'setting'))}">经纪人设置</a></li>
+
+	
+	{if !empty($agent['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('agent',array('op' =>'post','id'=>$agent['id']))}">编辑经纪人</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:30px;">ID</th>
+						
+					<th>姓名</th>
+					<th>电话</th>
+					<th>微信</th>
+			        <th>邮箱</th>
+			        <th>个人会员</th>
+			        <th>企业会员</th>
+					<th>创建时间</th>
+					<th>状态</th>
+					<th >操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $vo}
+				<tr>
+					<td>{$vo['id']}</td>
+					
+					<td>{$vo['name']}</td>
+					<td>{$vo['tel']}</td>
+					<td>{$vo['weixin']}</td>
+					<td>{$vo['email']}</td>
+					<td>0</td>
+					<td>0</td>
+					<td>{php echo date('Y-m-d',$vo['createtime']);}</td>
+					<td> {if $vo['status'] == 1} <span style="color:blue;">审核通过</span>{else} <span style="color:red;">待审核</span>{/if}</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('agent', array('op' => 'post', 'id' => $vo['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改"><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('agent', array('op' => 'delete', 'id' => $vo['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'setting'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$agent['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				经纪人奖金设置
+			</div>
+			<div class="panel-body">
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>推荐简历奖</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='notemoney' name="notemoney" class="form-control" value="{$agent['notemoney']}" />
+					</div>
+				</div>
+			
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>推荐企业奖</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='companymoney' name="companymoney" class="form-control" value="{$agent['companymoney']}" />
+					</div>
+				</div>
+			
+				
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+	
+		if ($("#notemoney").val()=='') {
+			util.message("请输入推荐简历奖励");
+			return false;
+		}
+		if ($("#companymoney").val()=='') {
+			util.message("请输入推荐企业奖励");
+			return false;
+		}
+	
+		return true;
+	}
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$agent['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				经纪人设置
+			</div>
+			<div class="panel-body">
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>姓名</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='name' name="name" class="form-control" value="{$agent['name']}" />
+					</div>
+				</div>
+			
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>电话</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='tel' name="tel" class="form-control" value="{$agent['tel']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>微信</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='weixin' name="weixin" class="form-control" value="{$agent['weixin']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>邮箱</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='email' name="email" class="form-control" value="{$agent['email']}" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否审核通过</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='status' value=1' {if $agent['status']==1}checked{/if} /> 是
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='status' value=0' {if $agent['status']==0}checked{/if} /> 否
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+	
+		if ($("#name").val()=='') {
+			util.message("请输入姓名");
+			return false;
+		}
+		if ($("#intro").val()=='') {
+			util.message("请输入简介");
+			return false;
+		}
+		if ($("#tel").val()=='') {
+		    util.message("请输入手机号");
+			return false;
+		}
+		if ($("#qq").val()=='') {
+			util.message("请输入QQ");
+			return false;
+		}
+		if ($("#address").val()=='') {
+			util.message("请输入中介地址");
+			return false;
+		}
+		if ($("textarea[name='content']").val()=='') {
+		//util.message("请输入详情");
+		//	return false;
+		}
+		return true;
+	}
+</script>
+{/if}
+{template 'common/footer'}

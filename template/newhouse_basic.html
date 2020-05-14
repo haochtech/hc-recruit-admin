@@ -1,0 +1,272 @@
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>楼盘名称</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="housename" id="housename" class="form-control" value="{$item['housename']}" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开发商</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="companyname" id="companyname" class="form-control" value="{$item['companyname']}" />
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>楼盘类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="housetype" name="housetype">
+				<option value="0">请选择楼盘类型</option>
+				<option value="1" {if $item['housetype'] == 1} selected{/if}>住宅</option>
+				<option value="2" {if $item['housetype'] == 2} selected {/if}>别墅</option>
+				<option value="3" {if $item['housetype'] == 3} selected {/if}>公寓</option>
+				<option value="4" {if $item['housetype'] == 4} selected {/if}>商铺</option>
+				<option value="5" {if $item['housetype'] == 5} selected {/if}>写字楼</option>
+				<option value="6" {if $item['housetype'] == 6} selected {/if}>酒店</option>
+				<option value="7" {if $item['housetype'] == 7} selected {/if}>厂房</option>
+				
+			</select>
+	</div>
+</div>
+
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>楼盘均价</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="houseprice" id="houseprice" class="form-control" value="{$item['houseprice']}" />
+	</div>
+</div>
+<div class="form-group">
+	
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>所属地区</label>
+	<div class="col-sm-8 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="houseareaid" name="houseareaid">
+				<option value="0">请选择所属地区</option>
+					{loop $arealist $vo}
+				<option value="{$vo['id']}" {if $item['houseareaid'] == $vo['id']} selected {/if}>{$vo['name']}</option>
+				{/loop}
+				
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>售楼电话</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="tel" id="tel" class="form-control" value="{$item['tel']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>项目地址</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="houseaddress" id="houseaddress" class="form-control" value="{$item['houseaddress']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>售楼地址</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="housesaleaddress" id="housesaleaddress" class="form-control" value="{$item['housesaleaddress']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>容积率</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="houserate" id="houserate" class="form-control" value="{$item['houserate']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>绿化率</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="housegreenrate" id="housegreenrate" class="form-control" value="{$item['housegreenrate']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>占地面积</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="housecovered" id="housecovered" class="form-control" value="{$item['housecovered']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>建筑面积</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="buildarea" id="buildarea" class="form-control" value="{$item['buildarea']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开盘时间</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="opensaletime" id="opensaletime" class="form-control" value="{$item['opensaletime']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>入驻时间</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="staytime" id="staytime" class="form-control" value="{$item['staytime']}" />
+	</div>
+</div>
+
+<div class="form-group">
+
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">项目特色</label>
+					<div class="col-sm-9 col-xs-12">
+			<label class='radio-inline'><input {if in_array('学区房',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="学区房" />学区房</label>
+			<label class='radio-inline'><input {if in_array('宜居生态地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="宜居生态地产" />宜居生态地产</label>
+			<label class='radio-inline'><input {if in_array('国际化社区',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="国际化社区" />国际化社区</label>
+			<label class='radio-inline'><input {if in_array('特色别墅',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="特色别墅" />特色别墅</label>
+			<label class='radio-inline'><input {if in_array('豪华居住区',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="豪华居住区" />豪华居住区</label>
+			<label class='radio-inline'><input {if in_array('景观居所',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="景观居所" />景观居所</label>
+<label class='radio-inline'><input {if in_array('科技住宅',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="科技住宅" />科技住宅</label>
+<label class='radio-inline'><input {if in_array('小户型',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="小户型" />小户型</label>
+<label class='radio-inline'><input {if in_array('品牌地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="品牌地产" />品牌地产</label>
+<label class='radio-inline'><input {if in_array('地铁沿线',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="地铁沿线" />地铁沿线</label>
+<label class='radio-inline'><input {if in_array('公园地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="公园地产" />公园地产</label>
+<label class='radio-inline'><input {if in_array('复合地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="复合地产" />复合地产</label>
+<label class='radio-inline'><input {if in_array('养老地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="养老地产" />养老地产</label>
+<label class='radio-inline'><input {if in_array('南北通透',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="南北通透" />南北通透</label>
+<label class='radio-inline'><input {if in_array('赠送面积',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="赠送面积" />赠送面积</label>
+<label class='radio-inline'><input {if in_array('湖景地产',$speciallist)} checked {/if} type="checkbox" name="productspecial[]" value="湖景地产" />湖景地产</label>
+					</div>
+
+
+	
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>所属学区</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="houseschool" id="houseschool" class="form-control" value="{$item['houseschool']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>附近公交</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="housebus" id="housebus" class="form-control" value="{$item['housebus']}" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>楼盘状态</label>
+	<div class="col-sm-9 col-xs-12">
+		<select class="form-control tpl-category-parent we7-select" id="housestatus" name="housestatus" >
+				<option value="0">请选择楼盘状态</option>
+				<option value="1" {if $item['housestatus'] == 1} selected{/if}>在售</option>
+				<option value="2" {if $item['housestatus'] == 2} selected{/if}>待售</option>
+				<option value="3" {if $item['housestatus'] == 3} selected{/if}>售完</option>
+				<option value="4" {if $item['housestatus'] == 4} selected{/if}>打折</option>
+				
+			</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>地图位置</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_coordinate('location', array('lng' => $item['lng'], 'lat' => $item['lat']))}
+					</div>
+				</div>
+
+<input type="hidden" name="id" id="id" value="{$item['id']}"/>
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">首图</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_form_field_image('thumb', $item['thumb'], '', array('extras' => array('text' => 'readonly')))}
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">内页滚动图片</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_form_field_multi_image('thumbs',$piclist)}
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label">详情介绍</label>
+	<div class="col-sm-9 col-xs-12">
+		{php echo tpl_ueditor('content', $item['content']);}
+	</div>
+</div>
+
+<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">首页推荐</label>
+					<div class="col-sm-9 col-xs-12">
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=1 {if $item['isrecommand']==1}checked{/if} /> 是
+						 </label>
+						 <label class='radio-inline'>
+							 <input type='radio' name='isrecommand' value=0 {if $item['isrecommand']==0}checked{/if} /> 否
+						 </label>
+					</div>
+				</div>
+
+
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>排序</label>
+	<div class="col-sm-9 col-xs-12">
+		<input type="text" name="sort" id="sort" class="form-control" value="{$item['sort']}" />
+	</div>
+</div>
+
+
+</div>
+
+
+<script language="javascript">
+
+	$(function () {
+		var i = 0;
+		$('#selectimage').click(function () {
+			var editor = KindEditor.editor({
+				allowFileManager: false,
+				imageSizeLimit: '30MB',
+				uploadJson: './index.php?act=attachment&do=upload'
+			});
+			editor.loadPlugin('multiimage', function () {
+				editor.plugin.multiImageDialog({
+					clickFn: function (list) {
+						if (list && list.length > 0) {
+							for (i in list) {
+								if (list[i]) {
+									html = '<li class="imgbox" style="list-type:none">' +
+												'<a class="item_close" href="javascript:;" onclick="deletepic(this);" title="删除"></a>' +
+												'<span class="item_box"> <img src="' + list[i]['url'] + '" style="height:80px"></span>' +
+												'<input type="hidden" name="attachment-new[]" value="' + list[i]['filename'] + '" />' +
+											'</li>';
+									$('#fileList').append(html);
+									i++;
+								}
+							}
+							editor.hideDialog();
+						} else {
+							alert('请先选择要上传的图片！');
+						}
+					}
+				});
+			});
+		});
+	});
+
+	function deletepic(obj) {
+		if (confirm("确认要删除？")) {
+			var $thisob = $(obj);
+			var $liobj = $thisob.parent();
+			var picurl = $liobj.children('input').val();
+			$.post('{php echo $this->createMobileUrl('ajaxdelete',array())}', {pic: picurl}, function (m) {
+				if (m == '1') {
+					$liobj.remove();
+				} else {
+					alert("删除失败");
+				}
+			}, "html");
+		}
+	}
+
+</script>
